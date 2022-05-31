@@ -1,0 +1,55 @@
+
+== NOTES IMPORTANTES
+ Modifications en vrac: 
+ - Retrait du point en fin de ligne, qui mangeait le dernier mot si c'était une ponctuation. Celà semble plutôt inadapté pour IRC.
+ - Retrait de la majuscule en début de phrase (idem, plus naturel sur IRC)
+ - La plage de carractères C0-FF est desormais traitée comme alpha-numérique pour que les accents en ISO-8891-1 ne soient plus traités comme des poncutations. Si vous utilisez utf-8 il est recommandé d'undef (remplacer #define par #undef) CAN_USE_ACCENTS_HACK (ligne 213).
+ - Ajout de variables et fonctions supplémentaires, a voir plus bas!
+
+
+== COMMANDES SUPPLEMENTAIRES
+
+nom: megahal_searchword
+desc: Cherche ou oublie un mot
+args: word Le mot à chercher/oublier. Tronqué automatiquement
+      forgetmode 0/1 oublie ou pas le mot en question
+returns: nombre d'occurences
+
+nom: megahal_search
+desc: Cherche ou oublie une phrase du brain
+args: string La phrase a chercher/oublier
+      forgetmode 0/1 oublier ou pas la phrase en question
+returns: phrase trouvée
+
+nom: megahal_make_words
+desc: debug, qui retourne une liste TCL des mots dans la phrase (avec les 031)
+args: une phrase
+returns: liste TCL de mots
+
+nom: megahal_debug_output 
+desc: debug, passe l'entrée a make_words puis a make_output - pour voir l'impact de megahal sur la phrase s'il essayait de la restituer
+args: la phrase
+returns: la phrase après passage dans megahal
+
+nom: megahal_getwordsymbol
+desc: retourne le symbole (numérique) du mot en question. utile en conjonction avec viewbranch!
+args: un mot
+returns: l'int qui le représente dans megahal
+
+nom: megahal_learn / megahal_getreply
+apprend un truc / retourne la réponse de l'I.A. (par rapport à une phrase d'origine)
+voir la doc 2.7 pour + de détails
+
+
+
+== VARIABLES SUPPLEMENTAIRES
+
+mega_debug : booleen (0/1, 0 par défaut) - active/désactive les macros de débugguage du module. elles permettent un traceback en cas de crash, mais utilisent de la mémoire supplémentaire
+
+mega_saveondie : booleen (0/1, 1 par défaut) - active/désactive la sauvegarde automatique sur un .die - utile pour les étourdis :o
+
+mega_verbose : booleen (0/1/2, 1 par défaut) - 0 = uniquement les messages importants / 1 = désactive les messages en partyline "fréquents", c'est à dire par exemple: trimmage de brain,  sauvegarde, etc. Toutes les actions importantes ou manuelles restent logguées telles que les changements d'ordre, chargement de brain, etc / 2 = tout
+
+mega_order : int - read only - permet de récupérer l'ordre actuel plus simplement
+
+mega_minLearnWords : int - permet de modifier le nombre minimum de mots requis dans une phrase pour que le module l'apprenne
