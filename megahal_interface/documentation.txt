@@ -1,0 +1,311 @@
+ ###############################################################################
+#
+# Interface MegaHAL v4.1.0  ©2007-2016 Menz Agitat
+# Documentation
+#
+ ###############################################################################
+
+
+
+Description
+-----------
+
+Interface MegaHAL est une interface pour le module MegaHAL développé par Zev
+^Baron^ Toledano et modifié par Artix, d'après l'I.A. de Jason Hutchens.
+
+Ce script ne fonctionnera correctement qu'avec la version 3.5 du module MegaHAL
+modifié par Artix (Artixed Edition); elle est normalement fournie avec si vous
+avez récupéré ce script au bon endroit.
+Remarque : si vous choisissez de ne pas utiliser la version fournie du module et
+que vous avez des problèmes, ne venez pas m'en parler.
+
+Le but de cette interface est d'accroître le contrôle que vous avez sur MegaHAL
+et d'ajouter de nombreuses fonctionnalités et améliorations.
+
+
+
+Fonctionnalités
+---------------
+
+- Tout est en français.
+- Contrôle de l'I.A. par flags (donc par chan) :
+	+/-megahal					:	Active/désactive la possibilité d'utiliser MegaHAL
+												sur un chan donné.
+												Ce flag est prioritaire sur les autres flags.
+	+/-megahal_respond	:	Active/désactive les réponses du bot quand un
+												mot-clé (son nick par exemple) est mentionné sur
+												un chan donné.
+	+/-megahal_chatter	:	Active/désactive les réponses spontanées du bot
+												sur un chan donné (c'est à dire sans qu'il soit
+												sollicité). 
+	+/-megahal_learn		:	Active/désactive l'apprentissage sur un chan donné.
+	Notez que ces flags sont tous désactivés par défaut si c'est la première fois
+	que vous utilisez ce script.
+	Remarque : si le flag -megahal est appliqué sur un chan, les seules commandes
+	publiques qui fonctionnent sont ".megahal on/off" et ".megahal_status"
+- Caractères spéciaux utilisables en début de ligne :
+		&		=		apprentissage forcé		+		réponse forcée
+		%		=		n'apprend pas					+		réponse forcée
+		~		=		apprentissage forcé		+		ne répond pas
+		$		=		n'apprend pas					+		ne répond pas
+		Remarque :	attention, & et ~ sont ultra-prioritaires sur toutes les formes
+								de filtrage et rien n'interdira au bot d'apprendre une commande
+								par exemple, et ce même si l'apprentissage est désactivé !
+								Faites attention à qui vous donnez l'autorisation d'utiliser ces
+								2 symboles.
+- Commande d'aide n'affichant que les commandes auxquelles vous avez droit en
+	fonction de votre accès.
+- Nombreuses commandes publiques et de partyline.
+- Régler à votre convenance les commandes et les autorisations pour chacune.
+- Définir un délai pour l'activation de l'I.A. après la connexion de l'Eggdrop
+	au serveur afin de réduire l'encombrement des files d'attente.
+- Choisir des mots clés qui provoqueront forcément une réponse (variables
+	acceptées).
+- Définir le niveau d'accès requis pour que l'I.A. soit autorisée à apprendre ce
+	que dit un utilisateur.
+- Définir des autorisations rédhibitoires pour empêcher que l'I.A. apprenne ce
+	que disent les utilisateurs ayant certains flags.
+- Définir le niveau d'accès requis pour que l'I.A. soit autorisée à répondre à
+	un utilisateur.
+- Définir des autorisations rédhibitoires pour empêcher que l'I.A. réponde aux
+	utilisateurs ayant certains flags.
+- Exclure certains nicks/handles de l'apprentissage : MegaHAL n'apprendra jamais
+	ce qu'ils disent.
+- Exclure certais nicks/handles des réponses : MegaHAL ne leur répondra jamais.
+- Définir une liste de mots (jokers acceptés) que l'I.A. ne doit jamais
+	apprendre.
+- Régler indépendamment le taux de réponse libre, le taux de réponse en réaction
+	à un mot clé, et le taux d'apprentissage.
+	Les taux sont exprimés en %.
+- Définir une longueur minimale en mots afin d'empêcher l'I.A. d'apprendre des
+	phrases trop courtes.
+- Définir une longueur maximale en mots afin d'empêcher l'I.A. d'apprendre des
+	phrases trop longues.
+- Choisir la longueur maximale en mots des réponses de MegaHAL (fonctionnalité
+	d'origine du module).
+- Apprendre APRES avoir répondu, afin que la réponse ne soit pas influencée par
+	ce qu'il vient juste d'apprendre.
+- Substituer le nick du bot par le nick de la personne à qui il répond selon un
+	pourcentage de chances.
+- Substituer les nicks des personnes présentes sur le chan par des symboles lors
+	de l'apprentissage, puis les substituer à nouveau par des nicks de personnes
+	présentes sur le chan lorsqu'ils seront réutilisés par l'I.A. (à l'exception
+	de certains nicks que vous pouvez choisir).
+- Choisir la taille maximale du contexte (fonctionnalité d'origine du module).
+- Mode surprise autorisant l'I.A. à prendre plus de libertés (fonctionnalité
+	d'origine du module).
+- Simuler le temps de frappe car un bot qui répond instantanément brise
+	l'illusion.
+- Empêcher l'I.A. d'apprendre le contenu des copier/coller et le flood en
+	imposant un délai minimum entre 2 apprentissages venant de la même personne.
+- Empêcher que l'I.A. envoie un flood de réponses (par exemple en réaction à un
+	copier/coller dont chaque ligne mentionne le nom du bot) en imposant un délai
+	minimum entre 2 réponses du bot à une même personne.
+- Protection anti-flood afin d'empêcher que MegaHAL réponde plus de x fois en y
+	secondes.
+- Possibilité de faire taire le bot pendant un certain temps en lui demandant
+	gentiment (ou pas), de choisir les autorisations requises pour pouvoir le
+	faire, et des autorisations rédhibitoires empêchant de le faire.
+- Les réponses de MegaHAL sont placées dans une file d'attente dédiée dont la
+	taille maximale peut être contrôlée.
+- Choisir la taille maximale du cerveau en nombre d'associations (également
+	appelées nodes) (fonctionnalité d'origine du module).
+- Modifier le temps imparti à la génération d'une réponse par MegaHAL (par
+	défaut 1 seconde).
+- Choisir si l'I.A. a le droit de répondre ou non quand quelqu'un tape une
+	commande.
+- Possibilité d'activer/désactiver le mode debug du module. Ce mode permet au
+	module d'afficher des informations sur le contexte en cas de crash mais
+	consomme plus de mémoire.
+- Possibilité d'afficher aléatoirement une réponse double dont l'une des deux
+	est une réponse neutre choisie aléatoirement dans une liste.
+	La deuxième réponse neutre peut intervenir avant ou après la réponse de
+	MegaHAL. Voici un exemple :
+		<MenzAgitat> fais gaffe, je crois que t'es un bot.
+		<bot> ou pas
+		<bot> fais gaffe, t'es sur #boulets
+- Mode débogage à plusieurs niveaux affichant des informations détaillées en
+	partyline en ce qui concerne le fonctionnement de l'interface MegaHAL.
+	Des codes couleur sont utilisés afin que le flot d'information soit facilement
+	lisible (rend beaucoup mieux sur fond noir que sur fond blanc).
+	Voir le fichier megahal_interface.cfg pour des explications détaillées.
+- Sauvegarde automatique de la personnalité à heures fixes ou selon un
+	intervalle de temps défini, mais aussi avant un rehash / restart / ... et
+	optionnellement un die.
+- Création automatique d'une copie de sauvegarde des bases de données de l'I.A.
+	chaque jour à une heure définie.
+- Procédure de désinstallation intégrée au script afin de lui garantir une
+	désinstallation propre à chaque re-lecture.
+- Suppression des balises "fin de couleur" (\017) que MegaHAL apprend par
+	défaut.
+- Empêche l'I.A. d'apprendre des commandes et de les réutiliser (vous pouvez
+	définir des exceptions).
+- Filtres d'apprentissages :
+	- éviter au maximum que le bot apprenne son propre nom afin d'éviter qu'il le
+		réutilise à outrance
+	- éviter d'apprendre les <nick> dans les copier/coller
+	- éviter d'apprendre les timestamps dans les copier/coller
+	- personnifier le bot afin qu'il reconnaisse mieux quand on parle de lui et
+		que ses réponses reflètent sa conscience de soi.
+- Filtres sur les réponses :
+	- éviter au maximum que le bot utilise son propre nick dans ses phrases
+	- personnifier le bot afin qu'il reconnaisse mieux quand on parle de lui et
+		que ses réponses reflètent sa conscience de soi.
+	- corriger certaines incohérences de langage récurrentes
+	- corriger certaines fautes grammaticales récurrentes
+	- corriger la casse de smileys qui ont besoin de majuscules pour conserver
+		leur signification
+	- corriger la casse des nicks des personnes présentes sur le chan (sans quoi
+		Megahal met tout en minuscules)
+	- augmenter le réalisme des réponses par certaines astuces simples (comme par
+		exemple remplacer "pourquoi" en début de phrase par "parce que" afin que le
+		bot ne réponde pas "pourquoi" à "pourquoi").
+- Log des réponses de MegaHAL dans les logs de chan de l'Eggdrop. (en temps
+	normal, l'Eggdrop ne se log pas lui-même)
+
+
+
+Commandes
+---------
+
+.aide_megahal
+	Affiche la liste des commandes spécifiques à l'Interface MegaHAL.
+
+.megahal
+	Active/désactive l'I.A. sur le chan en cours (contrôle le flag megahal).
+
+.learn
+	Active/désactive l'apprentissage sur le chan en cours (contrôle le flag
+	megahal_learn).
+
+.respond
+	Active/désactive la réponse de l'I.A. en cas de mot clé détecté sur le chan en
+	cours	(contrôle le flag megahal_respond).
+
+.chatter
+	Active/désactive la libre expression sur le chan en cours (contrôle le flag
+	megahal_chatter).
+
+.replyrate
+	Affiche/modifie le taux de réponse libre sur le chan en cours.
+
+.keyreplyrate
+	affiche/modifie le taux de réponse en cas de mot clé détecté sur le chan en
+	cours.
+
+.forget
+	Demande à l'I.A. d'oublier une phrase.
+
+.forgetword
+	Demande à l'I.A. d'oublier un mot.
+
+.seekstatement
+	Vérifie si l'I.A. connait une phrase donnée.
+
+.countword
+	Vérifie si l'I.A. connait un mot donné et en compte toutes les occurrences.
+
+.learnfile
+	Demande à l'I.A. d'apprendre le contenu d'un fichier.
+
+.savebrain
+	Sauvegarde la personnalité.
+
+.reloadbrain
+	Recharge la personnalité.
+
+.reloadphrases
+	Recharge les phrases (depuis le fichier .phr).
+
+.trimbrain
+	Effectue un élagage de la personnalité.
+
+.lobotomy
+	Effectue un lavage de cerveau.
+
+.restorebrain
+	Restaure un backup de la personnalité.
+
+.megahal_status
+	Affiche le statut de l'I.A. sur le chan en cours.
+
+.braininfo
+	Affiche des informations sur l'I.A.
+
+.memusage
+	Affiche une estimation de la quantité de mémoire occupée par l'I.A.
+
+.treesize
+	Affiche la taille d'une arborescence (commande de déboguage).
+
+.viewbranch
+	Affiche le contenu d'une branche de l'arborescence (commande de déboguage).
+
+.make_words
+	Retourne la phrase spécifiée, telle qu'elle sera mémorisée par l'I.A., en
+	mettant en évidence les caractères "glue" servant à empêcher la dissociation
+	de ce qui les entoure (commande de déboguage).
+
+.debug_output
+	Soumet une phrase à make_words, puis a make_output dans le but de voir
+	l'impact du module MegaHAL sur la construction de la phrase s'il essayait de
+	la restituer (commande de déboguage).
+
+.getwordsymbol
+	Retourne l'index (numérique) d'un mot, qui pourra ensuite être utilisé avec
+	.viewbranch pour voir les associations liées à ce mot (commande de déboguage).
+
+.moulinex_in
+	Soumet une phrase au traitement par la moulinette entrante de l'Interface
+	MegaHAL, afin de voir de quelle façon elle serait modifiée lors de
+	l'apprentissage (commande de déboguage).
+
+.moulinex_out
+	Soumet une phrase au traitement par la moulinette sortante de l'Interface
+	MegaHAL, afin de voir de quelle façon elle serait modifiée si le bot s'en
+	resservait (commande de déboguage).
+
+.megaver
+	Affiche la version du module et de l'interface.
+
+
+
+Installation du module
+----------------------
+
+L'installation du module sur un Eggdrop nécessite que ce dernier soit recompilé
+avec, après avoir placé les fichiers du module dans eggdrop1.6.20/src/mod/
+ou eggdrop1.6.21/src/mod/ selon la version de votre Eggdrop.
+
+L'installation du module sur un Windrop nécessite seulement de placer le fichier
+megahal.dll dans le répertoire modules de votre Windrop.
+
+Ajoutez enfin la ligne suivante dans le fichier eggdrop.conf :
+loadmodule megahal
+
+
+
+Activation
+----------
+
+Voici les commandes à taper pour activer complètement l'I.A. sur un chan :
+	.megahal on		(active la possibilité d'utiliser MegaHAL sur ce chan)
+	.learn on			(active l'apprentissage sur ce chan)
+	.respond on		(active la réponse de l'I.A. en cas de mot clé détecté sur ce chan)
+	.chatter on		(active la libre expression sur ce chan)
+
+Ces commandes sont à taper sur le chan sur lequel vous désirez activer MegaHAL.
+
+Notez que .megahal on/off agit comme un interrupteur global, vous permettant
+d'activer/désactiver entièrement MegaHAL sur ce chan via une seule commande,
+mais que son utilisation ne change rien à l'état des 3 autres interrupteurs
+(learn, respond et chatter), qui nécessitent d'être activés indépendamment.
+
+Si vous venez juste d'installer Interface MegaHAL et que votre bot possède déjà
+une personnalité, il est recommandé de lui effacer la mémoire (au moyen de la
+commande .lobotomy) afin de profiter pleinement des capacités de ce script.
+
+Vous trouverez de la documentation supplémentaire dans le fichier
+Megahal_Interface.cfg. Veuillez vous y reporter pour la configuration du
+script.
+

@@ -1,0 +1,252 @@
+ ###############################################################################
+#
+# Interface MegaHAL v4.1.0  ©2007-2016 Menz Agitat
+# Historique des versions
+#
+ ###############################################################################
+
+
+
+3.0.0
+	- 1ère release publique
+
+3.1.0
+	- Correction des réglages par défaut des options megawc_boundary et
+		megawc_glue : les caractères [ et ] n'étaient pas échappés.
+	- Correction de la doc, la variable DEBUGMODE ne PEUT PAS valoir juste 0, elle
+		doit OBLIGATOIREMENT être une liste de 7 valeurs.
+	- Correction de l'option learn_exclusion_list qui ne fonctionnait pas dans
+		certains cas. 
+	- Ajout de la déclaration de package MegaHAL_Interface 3.1.0
+	- Suppression de l'intégration de MC.Respond
+	- Intégration de Responder (script du même auteur à télécharger séparément)
+	- La file d'attente de parole est maintenant gérée différemment et simule de
+		façon plus réaliste le temps de frappe.
+		Auparavant, les délais de réponse étaient calculés à partir d'un point de
+		départ commun; ils sont maintenant indépendants et sont ajoutés les uns à la
+		suite des autres.
+	- La commande .learnfile est maintenant plus bavarde et vous affiche un
+		message de confirmation.
+	- Correction : la casse des nicks des personnes présentes sur le chan est
+		maintenant corrigée même si l'option substitute_all_nicks est activée.
+	- Correction : lors d'une lobotomie, on s'assure que le fichier BRN existe
+		bien avant d'effacer l'ancien fichier OLD.
+
+3.1.1
+	- Correction : l'option reply_exclusion_list ne fonctionnait pas dans certains
+		cas.
+	- Passage sous licence Creative Commons.
+
+3.2.0
+	- Correction d'un bug se manifestant lors d'un restart du bot : il
+		sauvegardait le brain, déchargeait le module MegaHAL, puis tentait à nouveau
+		une sauvegarde du brain, ce qui provoquait l'erreur "invalid command name
+		"trimbrain"".
+	- Correction d'un bug lors de la correction de la casse des nicks des
+		personnes présentes sur le chan : si un mot contenait un nick, il en
+		corrigeait la casse. Exemple : Fira étant un nick présent sur le chan, le
+		bot aurait répondu "ça sufFira".
+	- Correction d'un bug dans l'affichage de l'aide (commande .aide_megahal par
+		défaut) : la commande .memusage n'était pas affichée.
+	- Correction d'un bug de la commande .memusage : l'unité de mesure ne
+		s'affichait pas si la taille était inférieure à 1Ko.
+	- Correction d'une erreur dans la syntaxe affichée des commandes .viewbranch
+		et .treesize
+	- Correction d'un bug dans la fonctionnalité de la commande .viewbranch
+	- Correction : les caractères accentués sont désormais mis correctement en
+		minuscules lors de l'apprentissage.
+	- Correction : maintenant, la commande .lobotomy réinitialise également
+		megahal.dic et megahal.phr
+	- Correction : maintenant, la commande .restorebrain restaure également les
+		backups de megahal.dic et megahal.phr
+	- Modification : la configuration de l'Interface MegaHAL a été séparée du
+		script et se fait désormais par le biais du fichier MegaHAL_Interface.cfg
+	- Modification : le backup de megahal.brn qui est fait lors de l'utilisation
+		de .lobotomy porte désormais l'extension .brn.old au lieu de .old
+	- Suppression de l'option 2nd_neutral_reply_delay qui n'a plus lieu d'exister
+		depuis que MegaHAL gère sa propre file d'attente (donc depuis la version
+		3.1.0)
+	- Ajout de la reconnaissance des CTCP ACTION (/me). MegaHAL ne les apprendra
+		pas mais pourra y répondre.
+	- Ajout de l'option allow_replies_to_commands, vous permettant d'autoriser ou
+		non MegaHAL à répondre lorsque quelqu'un tape une commande.
+	- Ajout du paramètre pub_command_prefix vous permettant de définir le symbole
+		que vous voulez utiliser pour préfixer les commandes publiques.
+	- Ajout de l'équivalent dcc des commandes publiques suivantes : .aide_megahal
+		.forget .forgetword .seekstatement .countword .learnfile .savebrain
+		.reloadbrain .reloadphrases .trimbrain .lobotomy .restorebrain .memusage
+		.treesize .viewbranch
+	- Ajout de l'option pub_viewbranch_max, vous permettant de limiter le nombre
+		d'éléments d'une branche qui seront affichés sur un chan.
+	- Ajout de nouvelles chaînes de correction pour les moulinettes entrantes et
+		sortantes (il s'agit des corrections que l'interface apporte au texte appris
+		et dit afin d'augmenter le réalisme en donnant plus de sens au bot).
+	- Nombreuses améliorations/optimisations mineures du code.
+
+3.3.0
+	- Correction : les flags prioritaires ~ et & étaient inopérants si
+		l'apprentissage était désactivé, ce qui était en contradiction avec leur
+		rôle de passe-droit.
+	- Ajout de l'option substitute_by_interlocutor_nick_rate vous permettant de
+		choisir le pourcentage de chances pour que l'I.A. utilise le nick de la
+		personne à qui elle répond lors de la substitution, plutôt qu'un nick
+		aléatoire (voir l'option substitute_all_nicks).
+	- Ajout de l'option learn_auth permettant d'interdire à l'I.A. d'apprendre ce
+		que des utilisateurs n'ayant pas les privilèges requis disent.
+	- Ajout de l'option reply_auth permettant d'interdire à l'I.A. de répondre aux
+		utilisateurs n'ayant pas les privilèges requis.
+	- Ajout/modification de chaînes de correction des moulinettes entrantes et
+		sortantes (il s'agit des corrections que l'interface apporte au texte appris
+		et dit afin d'augmenter le réalisme en donnant plus de sens au bot).
+	- Ajout de nouvelles réponses neutres pour les options
+		2nd_neutral_pre_reply_list et 2nd_neutral_post_reply_list.
+	- Modification : les caractères ; et : ont été retirés de l'option
+		megawc_boundary afin de préserver certains smileys qui sinon étaient cassés
+		(cependant, ceux qui auront été appris avant ce correctif resteront cassés).
+
+3.4.0
+	- L'Interface MegaHAL détecte maintenant si le module MegaHAL n'est pas chargé
+		et affiche un message explicite en partyline et dans les logs le cas
+		échéant.
+		Si le module n'est pas détecté, le script tentera néanmoins de le charger
+		automatiquement.
+	- Correction : les caractères spéciaux dans le nom de l'Eggdrop ne provoquent
+		plus d'erreur.
+	- Correction : la détection des mots clés a été arrangée afin qu'un mot clé ne
+		soit plus détecté au milieu d'un autre mot.
+	- Correction : les symboles de début de ligne & % ~ et $ ne pouvaient pas être
+		utilisés par quelqu'un n'ayant pas de handle (c'est à dire pas d'accès dans
+		la userlist de l'Eggdrop).
+	- Correction : les <nick> (nick) (@nick) <%nick> et autres formes courantes
+		sont maintenant correctement filtrées dans les copier/coller.
+	- Correction : les nicks n'étaient pas correctement substitués s'ils étaient
+		collés à un symbole, comme par exemple une virgule (voir option
+		substitute_all_nicks).
+	- Correction : en raison d'un traitement de la moulinette entrante, certains
+		smileys étaient cassés lors de l'apprentissage.
+	- Ajout de l'option learn_forbidden_auth permettant de définir des
+		autorisations rédhibitoires pour l'apprentissage à l'I.A.
+	- Ajout de l'option reply_forbidden_auth permettant de définir des
+		autorisations rédhibitoires pour les réponses de l'I.A.
+	- Ajout de l'option shutup_auth permettant de définir les autorisations
+		requises pour pouvoir faire taire le bot en le lui demandant.
+	- Ajout de l'option shutup_forbidden_auth permettant de définir les
+		autorisations rédhibitoires pour faire taire le bot en le lui demandant.
+	- Ajout de l'option auto_savebrain_cron afin de pouvoir définir à quels
+		moments (ou à quel intervalle de temps) la personnalité doit être
+		enregistrée sur le disque dur.
+	- Ajout/modification de chaînes de correction des moulinettes entrantes et
+		sortantes (il s'agit des corrections que l'interface apporte au texte appris
+		et dit afin d'augmenter le réalisme en donnant plus de sens au bot).
+
+3.5.0
+	- Correction : en raison d'un traitement de la moulinette entrante, la 1ère
+		lettre de certaines phrases était occasionnellement tronquée lors de
+		l'apprentissage.
+	- Correction : les commandes .forget et .forgetword tiennent maintenant compte
+		de la substitution des nicks (si elle est activée) lorsque ce que vous
+		voulez faire oublier à l'I.A. contient un nick.
+	- Ajout de l'option maxlearnwords vous permettant de définir un nombre de mots
+		maximum dans les phrases que l'I.A. a le droit d'apprendre.
+	- Ajout de quelques reconnaissances de phrases supplémentaires pour dire au
+		bot de se taire.
+	- Quelques optimisations mineures du code
+
+4.0.0
+	- Nouvelle version du module (v3.5) par Zev ^Baron^ Toledano and Jason
+		Hutchens, et nouvelles améliorations du module par Artix.
+		Si vous utilisiez déjà une précédente version de MegaHAL, il vous faudra
+		recompiler votre Eggdrop avec la nouvelle version fournie s'il s'agit d'un
+		Eggdrop, ou remplacer le fichier megahal.dll précédent par le nouveau s'il
+		s'agit d'un Windrop.
+		Cette nouvelle version du module devrait (entre autres) réduire sensiblement
+		les problèmes de phrases incomplètes que le bot sortait fréquemment et
+		éliminer les messages du genre "ATTEMPTING TO FREE NULL PTR" qui survenaient
+		lors d'un restart de l'Eggdrop.
+		En raison du découpage qui se fait maintenant différemment à
+		l'apprentissage, il est recommandé de repartir avec une nouvelle
+		personnalité (voir la commande .lobotomy).
+	- Correction : la susbstitution des nicks ne fonctionnait plus dans la
+		version 3.5.0
+	- Correction : la forme de HL "nick »" est maintenant correctement filtrée.
+	- Correction : la commande .seekstatement tient maintenant compte de la
+		substitution des nicks (si elle est activée).
+	- Correction : la commande .countword tient maintenant compte de la
+		substitution des nicks (si elle est activée).
+	- Correction d'un bug dans la commande .braininfo : elle ne reflétait pas
+		l'état réel du flag megahal_learn.
+	- Correction : les paramètres de couleur sont maintenant respectés partout
+		dans les messages de l'interface (hors DEBUGMODE) et sont modifiables et
+		désactivables à volonté.
+		De plus, sur un chan où le mode +c est actif, les codes de couleur/gras/...
+		seront automatiquement filtrés.
+	- Modification : en raison d'un problème de découpage lié aux _ dans les
+		__usernick$hash__, la forme devient oooooousernick$hashoooooo.
+	- Modification : l'Interface MegaHAL détecte maintenant si la version du
+		module qui est chargée est la bonne ou pas.
+	- Modification : l'option mega_timeout fonctionne maintenant en millisecondes
+		et permet donc des valeurs inférieures à 1 seconde.
+		Dans les versions précédentes où le réglage se faisait en secondes, les
+		valeurs décimales n'avaient pas l'effet souhaité.
+	- Modification : les options megawc_boundary megawc_space et megawc_glue
+		ont disparu car elles ne sont désormais plus justifiées, en raison du
+		fonctionnement différent de la nouvelle version du module en ce qui concerne
+		le découpage.
+	- Ajout de l'option verbose_automatisms permettant de choisir d'afficher ou
+		non les messages automatiques en partyline comme "Personnalité réduite",
+		"Personnalité sauvegardée" et "Sauvegarde des bases de données...".
+		Les messages importants et ceux qui résultent d'une opération manuelle
+		seront cependant toujours affichés.
+	- Ajout de la commande .make_words, retournant une phrase spécifiée, telle
+		qu'elle sera mémorisée par l'I.A., en mettant en évidence les caractères
+		"glue" servant à empêcher la dissociation de ce qui les entoure (commande de
+		déboguage).
+	- Ajout de la commande .debug_output, permettant de soumettre une phrase à
+		make_words, puis a make_output dans le but de voir l'impact du module
+		MegaHAL sur la construction de la phrase s'il essayait de la restituer
+		(commande de déboguage).
+	- Ajout de la commande .getwordsymbol, retournant l'index (numérique) d'un
+		mot, qui pourra ensuite être utilisé avec .viewbranch pour voir les
+		associations liées à ce mot (commande de déboguage).
+	- Ajout de la commande .moulinex_in, permettant de soumettre une phrase au
+		traitement par la moulinette entrante de l'Interface MegaHAL, afin de voir
+		de quelle façon elle serait modifiée lors de l'apprentissage (commande de
+		déboguage).
+	- Ajout de la commande .moulinex_out, permettant de soumettre une phrase au
+		traitement par la moulinette sortante de l'Interface MegaHAL, afin de voir
+		de quelle façon elle serait modifiée si le bot s'en resservait (commande de
+		déboguage).
+	- Ajout de la commande .megaver permettant d'afficher la version du module et
+		de l'interface.
+	- Ajout/modification de chaînes de correction des moulinettes entrantes et
+		sortantes.
+	- Nombreuses corrections / améliorations / optimisations mineures.
+
+4.1.0
+	- Correction : l'utilisation de certains caractères provoquait une erreur avec
+		les commandes .forget .forgetword .countword et .seekstatement
+	- Correction : la moulinette entrante supprimait parfois un nick en début de
+		phrase alors qu'il était important pour le sens de la phrase.
+	- Modification : amélioration du filtrage des nicks en début de phrase
+		lorsqu'ils ne servent qu'à attirer l'attention de l'interlocuteur.
+	- Modification : les fichiers du script se trouvent désormais dans le
+		répertoire MegaHAL_Interface.
+	- Modification : Une bonne partie des substitutions faites par les moulinettes
+		(en entrée et en sortie) ont été supprimées car elles donnaient de mauvais
+		résultats depuis la mise en place du système de substitution des nicks.
+	- Modification : l'Interface MegaHAL ne touche désormais plus à l'encodage du
+		texte.
+	- Modification : l'affichage de l'aide utilise maintenant une file d'attente
+		dédiée ayant une priorité nulle afin de ne pas engorger les autres files
+		d'attente de l'Eggdrop.
+		Les messages contenus dans cette file d'attente ne s'afficheront que lorsque
+		toutes les autres files d'attente sont vides.
+	- Modification : les informations retournées par la commande .braininfo ont
+		été condensées pour tenir sur 2 ou 3 lignes au lieu de 3 ou 4.
+	-	Modification : le paramètre substitute_by_interlocutor_nick_rate n'autorise
+		désormais plus qu'une seule substitution par le nick de l'interlocuteur afin
+		d'augmenter la pertinence des réponses.
+	- Ajout : si le nick d'un utilisateur présent est cité en s'adressant à
+		MegaHAL et que la substitution des nicks est activée, celui-ci pourra être
+		réutilisé dans la réponse.
+	- Diverses optimisations du code.
